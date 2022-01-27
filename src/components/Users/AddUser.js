@@ -8,7 +8,7 @@ import Button from "../UI/Button/Button";
 
 const AddUser = (props) => {
   const [enteredUsername, setEnteredUsernam] = useState("");
-  const [enteredLevel, setEnteredLevel] = useState(0);
+  const [enteredLevel, setEnteredLevel] = useState("0");
 
   const usernameInputChangeHandler = (event) => {
     setEnteredUsernam(event.target.value);
@@ -27,13 +27,13 @@ const AddUser = (props) => {
       console.log("Incomplete Input");
       return;
     }
-    if (+enteredLevel < 1) {
+    if (+enteredLevel < 0) {
       console.log("Invalid Level");
       return;
     }
-    console.log(enteredUsername, enteredLevel);
+    props.onAddUser(enteredUsername, enteredLevel);
     setEnteredUsernam("");
-    setEnteredLevel(0);
+    setEnteredLevel("0");
   };
 
   return (
