@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 
 const ErrorModal = (props) => {
   return (
-    <div>
+    <>
       <div className={Classes.backdrop} onClick={props.onReturn2Input} />
       <Card className={Classes.modal}>
         <header className={Classes.header}>
@@ -19,7 +19,7 @@ const ErrorModal = (props) => {
           <Button onClick={props.onReturn2Input}>Close</Button>
         </footer>
       </Card>
-    </div>
+    </>
   );
 };
 
