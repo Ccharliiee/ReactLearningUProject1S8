@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import addUserClasses from "./AddUser.module.css";
 import Card from "../UI/Card/Card";
@@ -6,20 +6,14 @@ import Button from "../UI/Button/Button";
 import ErrorModal from "../UI/ErrorModal/ErrorModal";
 
 const AddUser = (props) => {
-  const [enteredUsername, setEnteredUsernam] = useState("");
-  const [enteredLevel, setEnteredLevel] = useState("0");
   const [errorInfo, setErrorInfo] = useState();
-
-  const usernameInputChangeHandler = (event) => {
-    setEnteredUsernam(event.target.value);
-  };
-
-  const levelInputChangeHandler = (event) => {
-    setEnteredLevel(event.target.value);
-  };
+  const enteredUsernameRef = useRef();
+  const enteredLevelRef = useRef();
 
   const addUserHandler = (event) => {
     event.preventDefault();
+    const enteredUsername = enteredUsernameRef.current.value;
+    const enteredLevel = enteredLevelRef.current.value;
     if (
       enteredUsername.trim().length === 0 ||
       enteredLevel.trim().length === 0
@@ -38,8 +32,6 @@ const AddUser = (props) => {
       return;
     }
     props.onAddUser(enteredUsername, enteredLevel);
-    setEnteredUsernam("");
-    setEnteredLevel("0");
   };
 
   const errorHandler = () => {
@@ -58,19 +50,9 @@ const AddUser = (props) => {
       <Card className={addUserClasses.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={enteredUsername}
-            onChange={usernameInputChangeHandler}
-          />
+          <input id="username" type="text" ref={enteredUsernameRef} />
           <label htmlFor="level">Level</label>
-          <input
-            id="level"
-            type="number"
-            value={enteredLevel}
-            onChange={levelInputChangeHandler}
-          />
+          <input id="level" type="number" ref={enteredLevelRef} />
           <Button type="submit">Add User</Button>
         </form>
       </Card>
